@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { getPropertyBySlug } from "@/lib/properties";
 import EnquiryModal from "@/components/enquiry-modal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export default function PropertyDetail() {
   const params = useParams();
@@ -36,7 +36,10 @@ export default function PropertyDetail() {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState(0);
 
-  const galleryImages = property ? [property.thumbnail, ...property.images] : [];
+  const galleryImages = useMemo(
+    () => (property ? [property.thumbnail, ...property.images] : []),
+    [property]
+  );
 
   useEffect(() => {
     const shown = sessionStorage.getItem(`popup_${slug}`);
@@ -130,13 +133,14 @@ export default function PropertyDetail() {
           >
              <motion.div
               onClick={() => { setGalleryIndex(0); setGalleryOpen(true); }}
-              className="relative w-full lg:w-[66.666%] h-[300px] lg:h-full overflow-hidden group cursor-pointer"
+              className="relative w-full lg:w-[66.666%] h-[300px] lg:h-full overflow-hidden group cursor-pointer bg-[#E8E6E1]"
             >
               <Image
                 src={property.images[0]}
                 alt={property.name}
                 fill
                 priority
+                fetchPriority="high"
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
@@ -150,23 +154,21 @@ export default function PropertyDetail() {
             </motion.div>
             <div className="flex flex-row lg:flex-col gap-3 w-full lg:w-[33.333%] h-[100px] lg:h-full">
               {property.images.slice(1, 4).map((img, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * i }}
                   onClick={() => { setGalleryIndex(i + 2); setGalleryOpen(true); }}
-                  className="relative flex-1 overflow-hidden rounded-xl group cursor-pointer"
+                  className="relative flex-1 overflow-hidden rounded-xl group cursor-pointer bg-[#E8E6E1]"
                 >
                   <Image
                     src={img}
                     alt={`${property.name} view ${i + 2}`}
                     fill
+                    loading="lazy"
                     sizes="(max-width: 1024px) 33vw, 11vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
-                </motion.div>
+                </div>
               ))}
             </div>
           </motion.div>
@@ -432,7 +434,7 @@ export default function PropertyDetail() {
 
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full h-full max-w-5xl max-h-[85vh] mx-4"
+            className="relative w-full h-full max-w-5xl max-h-[85vh] mx-4 bg-[#1a1a1a]"
           >
             <motion.div
               key={galleryIndex}
