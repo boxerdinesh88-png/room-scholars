@@ -34,10 +34,10 @@ export const properties: Property[] = [
     thumbnail: "/city/DWVlxMLXIYibGkfBbV73OMd7eMkK8J.jpg",
     tag: "Popular",
     images: [
-      "/property/download%20(48).jpg",
-      "/room%20scholars%20bed/download%20(20).jpg",
-      "/bathroom/download%20(20).jpg",
-      "/daining%20area/download%20(48).jpg",
+      "/property/download (48).jpg",
+      "/room scholars bed/download (20).jpg",
+      "/bathroom/download (20).jpg",
+      "/daining area/download (48).jpg",
     ],
     description:
       "A beautifully designed studio apartment in the heart of South Kensington, perfect for students seeking luxury and convenience. Located steps away from Imperial College London and world-class museums, this property offers a serene study environment with premium furnishings, high-speed Wi-Fi, and 24-hour security.",
@@ -68,10 +68,10 @@ export const properties: Property[] = [
     thumbnail: "/city/IjvLOKWwU6CyER7QTJ6nValt8Oq2r9.jpg",
     tag: "Best Value",
     images: [
-      "/property/download%20(49).jpg",
-      "/room%20scholars%20bed/download%20(21).jpg",
-      "/bathroom/download%20(21).jpg",
-      "/daining%20area/download%20(49).jpg",
+      "/property/download (49).jpg",
+      "/room scholars bed/download (21).jpg",
+      "/bathroom/download (21).jpg",
+      "/daining area/download (49).jpg",
     ],
     description:
       "A spacious two-bedroom residence in Westminster offering exceptional value for money. With stunning views of the London skyline and easy access to the River Thames, this property combines affordability with prime location. Features include a modern kitchen, comfortable living area, and excellent transport links.",
@@ -102,10 +102,10 @@ export const properties: Property[] = [
     thumbnail: "/city/ilXaYPdKFUJJjiKrzmOClEPFEco9Tu.jpg",
     tag: "Premium",
     images: [
-      "/property/download%20(50).jpg",
-      "/room%20scholars%20bed/download%20(22).jpg",
-      "/bathroom/download%20(22).jpg",
-      "/daining%20area/download%20(50).jpg",
+      "/property/download (50).jpg",
+      "/room scholars bed/download (22).jpg",
+      "/bathroom/download (22).jpg",
+      "/daining area/download (50).jpg",
     ],
     description:
       "A premium studio in the vibrant King's Cross area, ideal for students who value style and connectivity. This meticulously designed space features floor-to-ceiling windows, a sleek modern bathroom, and a fully integrated kitchen. Minutes from King's Cross Station and Central Saint Martins.",
@@ -136,10 +136,10 @@ export const properties: Property[] = [
     thumbnail: "/city/LjrjFnDTQGtNZvUGxBjO.jpeg",
     tag: null,
     images: [
-      "/property/download%20(51).jpg",
-      "/room%20scholars%20bed/download%20(23).jpg",
-      "/bathroom/download%20(23).jpg",
-      "/daining%20area/download%20(51).jpg",
+      "/property/download (51).jpg",
+      "/room scholars bed/download (23).jpg",
+      "/bathroom/download (23).jpg",
+      "/daining area/download (51).jpg",
     ],
     description:
       "A contemporary two-bedroom, two-bathroom apartment in the creative heart of Shoreditch. Perfect for sharing students who want space and style. The open-plan living area is bathed in natural light, with a modern kitchen, hardwood floors, and access to a private courtyard garden.",
@@ -170,10 +170,10 @@ export const properties: Property[] = [
     thumbnail: "/city/RudSyGkpGV8dlaGmI74VmK47by52Yr.jpg",
     tag: "Premium",
     images: [
-      "/property/download%20(54).jpg",
-      "/room%20scholars%20bed/download%20(6).jpg",
-      "/bathroom/download%20(6).jpg",
-      "/daining%20area/download%20(48).jpg",
+      "/property/download (54).jpg",
+      "/room scholars bed/download (6).jpg",
+      "/bathroom/download (6).jpg",
+      "/daining area/download (48).jpg",
     ],
     description:
       "A luxurious high-rise studio in Canary Wharf with panoramic city views. This premium property features floor-to-ceiling windows, a modern en-suite bathroom, and a sleek kitchenette. Enjoy access to the residents' gym, rooftop terrace, and 24-hour concierge service.",
@@ -206,10 +206,10 @@ export const properties: Property[] = [
     thumbnail: "/city/2n9jptiUWdcGQIRljf6BVASB0sRKSD.jpg",
     tag: "Best Value",
     images: [
-      "/property/download%20(55).jpg",
-      "/room%20scholars%20bed/download%20(7).jpg",
-      "/bathroom/download%20(7).jpg",
-      "/daining%20area/download%20(49).jpg",
+      "/property/download (55).jpg",
+      "/room scholars bed/download (7).jpg",
+      "/bathroom/download (7).jpg",
+      "/daining area/download (49).jpg",
     ],
     description:
       "A stylish and affordable studio in the heart of Manchester city centre. Perfect for students at the University of Manchester and Manchester Metropolitan University, this property offers a comfortable study environment with modern furnishings and excellent transport links.",
@@ -240,10 +240,10 @@ export const properties: Property[] = [
     thumbnail: "/city/Mtw4YPkytipMAKLbaFcDQTripdJ17e.jpg",
     tag: null,
     images: [
-      "/property/download%20(56).jpg",
-      "/room%20scholars%20bed/download%20(8).jpg",
-      "/bathroom/download%20(8).jpg",
-      "/daining%20area/download%20(50).jpg",
+      "/property/download (56).jpg",
+      "/room scholars bed/download (8).jpg",
+      "/bathroom/download (8).jpg",
+      "/daining area/download (50).jpg",
     ],
     description:
       "A spacious two-bedroom apartment on Oxford Road, ideal for sharing students. Just minutes from the university campuses, this property features a bright living area, modern kitchen, and excellent transport connections. Exceptional value for student living.",
@@ -274,10 +274,10 @@ export const properties: Property[] = [
     thumbnail: "/city/oebCqiwXX1EFCJKgIUPADF6osnw9Sh.jpg",
     tag: "Premium",
     images: [
-      "/property/download%20(57).jpg",
-      "/room%20scholars%20bed/download%20(9).jpg",
-      "/bathroom/download%20(9).jpg",
-      "/daining%20area/download%20(51).jpg",
+      "/property/download (57).jpg",
+      "/room scholars bed/download (9).jpg",
+      "/bathroom/download (9).jpg",
+      "/daining area/download (51).jpg",
     ],
     description:
       "A trendy loft-style studio in Manchester's iconic Northern Quarter. Exposed brick walls, hardwood floors, and large windows create a creative living space. Surrounded by independent cafes, vintage shops, and art galleries, this is the perfect home for the style-conscious student.",
@@ -310,10 +310,10 @@ export const properties: Property[] = [
     thumbnail: "/city/4BbT7SaPhDewwlluvuT0FN3lwZpoHj.jpg",
     tag: "Best Value",
     images: [
-      "/property/download%20(58).jpg",
-      "/room%20scholars%20bed/download%20(10).jpg",
-      "/bathroom/download%20(10).jpg",
-      "/daining%20area/download%20(52).jpg",
+      "/property/download (58).jpg",
+      "/room scholars bed/download (10).jpg",
+      "/bathroom/download (10).jpg",
+      "/daining area/download (52).jpg",
     ],
     description:
       "A well-appointed two-bedroom apartment in Birmingham's vibrant Brindley Place. Overlooking the canal with stunning city views, this property offers spacious living areas, a modern kitchen, and easy access to Birmingham's universities and the city's best restaurants.",
@@ -344,10 +344,10 @@ export const properties: Property[] = [
     thumbnail: "/city/ogZpldm7zBgVrgDIENerSntlUMcX7L.jpg",
     tag: "Popular",
     images: [
-      "/property/download%20(59).jpg",
-      "/room%20scholars%20bed/download%20(11).jpg",
-      "/bathroom/download%20(11).jpg",
-      "/daining%20area/download%20(53).jpg",
+      "/property/download (59).jpg",
+      "/room scholars bed/download (11).jpg",
+      "/bathroom/download (11).jpg",
+      "/daining area/download (53).jpg",
     ],
     description:
       "A charming studio apartment in the historic Jewellery Quarter. This cosy yet modern space features original period details combined with contemporary fittings. Walking distance to Birmingham City University and the city centre, with excellent local amenities on your doorstep.",
@@ -380,10 +380,10 @@ export const properties: Property[] = [
     thumbnail: "/city/4PNF3wGb6JZwOoF14kfzAl8ESHwQ8V.jpg",
     tag: null,
     images: [
-      "/property/download%20(60).jpg",
-      "/room%20scholars%20bed/download%20(12).jpg",
-      "/bathroom/download%20(12).jpg",
-      "/daining%20area/download%20(54).jpg",
+      "/property/download (60).jpg",
+      "/room scholars bed/download (12).jpg",
+      "/bathroom/download (12).jpg",
+      "/daining area/download (54).jpg",
     ],
     description:
       "A stunning two-bedroom, two-bathroom apartment at Liverpool's iconic Albert Dock. With breathtaking waterfront views and UNESCO World Heritage surroundings, this property combines historic charm with modern luxury. Minutes from Liverpool John Moores University and LJMU.",
@@ -414,10 +414,10 @@ export const properties: Property[] = [
     thumbnail: "/city/A2uMphXsfFbJuJg87xDOYZ5iDtr5ka.jpg",
     tag: "Best Value",
     images: [
-      "/property/download%20(61).jpg",
-      "/room%20scholars%20bed/download%20(13).jpg",
-      "/bathroom/download%20(13).jpg",
-      "/daining%20area/download%20(53).jpg",
+      "/property/download (61).jpg",
+      "/room scholars bed/download (13).jpg",
+      "/bathroom/download (13).jpg",
+      "/daining area/download (53).jpg",
     ],
     description:
       "A spacious three-bedroom student house on Liverpool's prestigious Hope Street. Located between the two magnificent cathedrals and surrounded by the city's best restaurants and cultural venues. Ideal for a group of friends wanting to live in the heart of the city.",
@@ -450,10 +450,10 @@ export const properties: Property[] = [
     thumbnail: "/city/t7hnQLv2aSnoCYwN1mX6wLC0OuOhxu.jpg",
     tag: "Popular",
     images: [
-      "/property/download%20(62).jpg",
-      "/room%20scholars%20bed/download%20(14).jpg",
-      "/bathroom/download%20(14).jpg",
-      "/daining%20area/download%20(48).jpg",
+      "/property/download (62).jpg",
+      "/room scholars bed/download (14).jpg",
+      "/bathroom/download (14).jpg",
+      "/daining area/download (48).jpg",
     ],
     description:
       "A modern studio apartment in the heart of Leeds, overlooking City Square. This well-designed space offers everything a student needs, from a dedicated study area to a fully equipped kitchen. Steps from Leeds University, the Trinity Shopping Centre, and vibrant nightlife.",
@@ -484,10 +484,10 @@ export const properties: Property[] = [
     thumbnail: "/city/xiJdNdpM84694i6gwxjWfbAyd67DrX.jpg",
     tag: null,
     images: [
-      "/property/download%20(63).jpg",
-      "/room%20scholars%20bed/download%20(15).jpg",
-      "/bathroom/download%20(15).jpg",
-      "/daining%20area/download%20(49).jpg",
+      "/property/download (63).jpg",
+      "/room scholars bed/download (15).jpg",
+      "/bathroom/download (15).jpg",
+      "/daining area/download (49).jpg",
     ],
     description:
       "A generous three-bedroom, two-bathroom house in the popular Headingley area. Perfect for student groups, this property offers a large living and dining area, private garden, and off-street parking. Located near Headingley Stadium and Otley Run, with excellent bus links to campus.",
@@ -519,10 +519,10 @@ export const properties: Property[] = [
     thumbnail: "/city/d06qx3rs8EFTAxe4xl7ci2PB5ptMpQ.jpg",
     tag: "Premium",
     images: [
-      "/property/download%20(64).jpg",
-      "/room%20scholars%20bed/download%20(16).jpg",
-      "/bathroom/download%20(16).jpg",
-      "/daining%20area/download%20(50).jpg",
+      "/property/download (64).jpg",
+      "/room scholars bed/download (16).jpg",
+      "/bathroom/download (16).jpg",
+      "/daining area/download (50).jpg",
     ],
     description:
       "A beautifully restored two-bedroom flat in Edinburgh's historic Old Town. Character features including original fireplace and sash windows blend seamlessly with modern amenities. Just a short walk to the University of Edinburgh, Edinburgh Castle, and the Royal Mile.",
@@ -553,10 +553,10 @@ export const properties: Property[] = [
     thumbnail: "/city/YQar98ldInDxC5aaia9JhOOEbNtLav.jpg",
     tag: "Popular",
     images: [
-      "/property/download%20(65).jpg",
-      "/room%20scholars%20bed/download%20(17).jpg",
-      "/bathroom/download%20(17).jpg",
-      "/daining%20area/download%20(51).jpg",
+      "/property/download (65).jpg",
+      "/room scholars bed/download (17).jpg",
+      "/bathroom/download (17).jpg",
+      "/daining area/download (51).jpg",
     ],
     description:
       "A premium studio residence near Holyrood Park and the Scottish Parliament. This modern property offers luxury student living with stunning views of Arthur's Seat. Features include a stylish en-suite bathroom, integrated kitchen, and access to a communal study lounge.",
