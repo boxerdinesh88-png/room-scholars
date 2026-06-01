@@ -77,20 +77,20 @@ export default function EnquiryModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] grid place-items-center p-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-[#081F4D]/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-[#081F4D]/70"
             onClick={handleClose}
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30 }}
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 30 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="relative bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] w-full max-w-lg max-h-[85vh] overflow-y-auto"
           >
             {/* Header */}
             <div className="relative bg-[#081F4D] px-6 py-5 rounded-t-2xl overflow-hidden">
@@ -234,8 +234,8 @@ export default function EnquiryModal({
                 </p>
               </form>
             ) : (
-              <div className="p-6 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-[#D4A24C]/10 flex items-center justify-center mx-auto mb-4">
+              <div className="p-8 text-center">
+                <div className="w-16 h-16 rounded-2xl bg-[#D4A24C]/10 flex items-center justify-center mx-auto mb-5">
                   <Send className="w-8 h-8 text-[#D4A24C]" />
                 </div>
                 <h3 className="text-xl font-bold font-[family-name:var(--font-playfair)] text-[#081F4D] mb-2">
@@ -248,7 +248,7 @@ export default function EnquiryModal({
                 <Button
                   variant="primary"
                   size="lg"
-                  className="rounded-full"
+                  className="rounded-full px-10"
                   onClick={handleClose}
                 >
                   Done
