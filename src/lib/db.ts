@@ -12,6 +12,10 @@ export function getPool(): mysql.Pool {
       database: process.env.DB_NAME || "room",
       waitForConnections: true,
       connectionLimit: 10,
+      queueLimit: 0,
+      connectTimeout: 10000,
+      enableKeepAlive: true,
+      keepAliveInitialDelay: 0,
     });
   }
   return pool;

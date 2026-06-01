@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import EnquiryModal from "@/components/enquiry-modal";
+
+const EnquiryModal = lazy(() => import("@/components/enquiry-modal"));
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -22,10 +23,21 @@ export default function Header() {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const closeMobile = useCallback(() => setMobileOpen(false), []);
 
   return (
     <header
@@ -110,7 +122,7 @@ export default function Header() {
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={closeMobile}
                   className="block px-4 py-3 text-sm font-medium text-white/70 hover:text-[#D4A24C] hover:bg-white/5 rounded-lg transition-colors"
                 >
                   {link.label}
@@ -144,13 +156,17 @@ export default function Header() {
         )}
       </AnimatePresence>
 
-      <EnquiryModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        propertyName="Room Scholars"
-        propertyLocation="United Kingdom"
-        price=""
-      />
+      <Suspense fallback={null}>
+        {modalOpen && (
+          <EnquiryModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            propertyName="Room Scholars"
+            propertyLocation="United Kingdom"
+            price=""
+          />
+        )}
+      </Suspense>
     </header>
   );
 }

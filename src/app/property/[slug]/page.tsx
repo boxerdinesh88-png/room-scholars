@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { getPropertyBySlug } from "@/lib/properties";
 import EnquiryModal from "@/components/enquiry-modal";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 export default function PropertyDetail() {
   const params = useParams();
@@ -43,33 +43,13 @@ export default function PropertyDetail() {
     [property]
   );
 
-  useEffect(() => {
-    const shown = sessionStorage.getItem(`popup_${slug}`);
-    if (!shown) {
-      const timer = setTimeout(() => {
-        setModalOpen(true);
-        sessionStorage.setItem(`popup_${slug}`, "true");
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [slug]);
+  const handlePrevImage = useCallback(() => {
+    setGalleryIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  }, [galleryImages.length]);
 
-  useEffect(() => {
-    if (!galleryOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setGalleryOpen(false);
-      if (e.key === "ArrowLeft")
-        setGalleryIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
-      if (e.key === "ArrowRight")
-        setGalleryIndex((prev) => (prev + 1) % galleryImages.length);
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [galleryOpen]);
+  const handleNextImage = useCallback(() => {
+    setGalleryIndex((prev) => (prev + 1) % galleryImages.length);
+  }, [galleryImages.length]);
 
   if (!property) {
     return (
@@ -93,7 +73,6 @@ export default function PropertyDetail() {
 
   return (
     <div className="min-h-screen bg-[#F8F7F4]">
-      {/* Header */}
       <div className="bg-white/95 backdrop-blur-md border-b border-gray-100/80 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -125,7 +104,6 @@ export default function PropertyDetail() {
         </div>
       </div>
 
-      {/* Hero Image Gallery */}
       <section className="relative mt-6 lg:mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -177,17 +155,14 @@ export default function PropertyDetail() {
         </div>
       </section>
 
-      {/* Content */}
       <section className="py-10 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
-            {/* Left: Details */}
             <div className="lg:col-span-7">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                {/* Location & Rating */}
                 <div className="flex items-center gap-2 mb-3">
                   <div className="flex items-center gap-1.5">
                     <MapPin className="w-4 h-4 text-[#D4A24C]" />
@@ -207,12 +182,10 @@ export default function PropertyDetail() {
                   </div>
                 </div>
 
-                {/* Title */}
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-playfair)] text-[#081F4D] mb-8 leading-tight">
                   {property.name}
                 </h1>
 
-                {/* Quick Specs Card */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-6 gap-x-4 mb-10 p-6 lg:p-8 bg-white rounded-2xl border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
                   <div className="flex items-center gap-3">
                     <div className="w-11 h-11 rounded-xl bg-[#081F4D]/5 flex items-center justify-center shrink-0">
@@ -280,7 +253,6 @@ export default function PropertyDetail() {
                   </div>
                 </div>
 
-                {/* About Section */}
                 <div className="mb-12">
                   <h2 className="text-2xl font-bold font-[family-name:var(--font-playfair)] text-[#081F4D] mb-5">
                     About This Property
@@ -293,7 +265,6 @@ export default function PropertyDetail() {
                   </p>
                 </div>
 
-                {/* Amenities Section */}
                 <div className="mb-12">
                   <h2 className="text-2xl font-bold font-[family-name:var(--font-playfair)] text-[#081F4D] mb-5">
                     Amenities &amp; Features
@@ -319,7 +290,6 @@ export default function PropertyDetail() {
               </motion.div>
             </div>
 
-            {/* Right: Booking Sidebar */}
             <div className="lg:col-span-5">
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -328,7 +298,6 @@ export default function PropertyDetail() {
                 className="sticky top-24"
               >
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">
-                  {/* Card Header */}
                   <div className="bg-[#081F4D] px-6 py-4">
                     <div className="flex items-center gap-2">
                       <Lock className="w-4 h-4 text-[#D4A24C]" />
@@ -337,7 +306,6 @@ export default function PropertyDetail() {
                   </div>
 
                   <div className="p-6">
-                    {/* Price */}
                     <div className="flex items-baseline gap-1.5 mb-6">
                       <span className="text-4xl font-bold text-[#081F4D]">
                         {property.price}
@@ -347,7 +315,6 @@ export default function PropertyDetail() {
                       </span>
                     </div>
 
-                    {/* Price Breakdown */}
                     <div className="space-y-3 mb-6 pb-6 border-b border-gray-100">
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-[#081F4D]/60">Booking Amount</span>
@@ -367,11 +334,21 @@ export default function PropertyDetail() {
                       </div>
                     </div>
 
-                    {/* Booking Details */}
                     <div className="space-y-3 mb-6">
                       <div className="flex items-center gap-3 p-3.5 rounded-xl bg-[#F8F7F4]">
                         <div className="w-9 h-9 rounded-lg bg-[#D4A24C]/10 flex items-center justify-center shrink-0">
-                          <CalendarDays className="w-4.5 h-4.5 text-[#D4A24C]" />
+                          <svg className="w-4.5 h-4.5 text-[#D4A24C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                            <line x1="16" x2="16" y1="2" y2="6" />
+                            <line x1="8" x2="8" y1="2" y2="6" />
+                            <line x1="3" x2="21" y1="10" y2="10" />
+                            <path d="M8 14h.01" />
+                            <path d="M12 14h.01" />
+                            <path d="M16 14h.01" />
+                            <path d="M8 18h.01" />
+                            <path d="M12 18h.01" />
+                            <path d="M16 18h.01" />
+                          </svg>
                         </div>
                         <div className="flex-1">
                           <p className="text-xs text-[#081F4D]/50">Move-in Date</p>
@@ -404,7 +381,6 @@ export default function PropertyDetail() {
                       </div>
                     </div>
 
-                    {/* Payment Methods */}
                     <div className="mb-6">
                       <p className="text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-3">
                         We accept
@@ -429,7 +405,6 @@ export default function PropertyDetail() {
                       </div>
                     </div>
 
-                    {/* CTA Button */}
                     <Button
                       variant="default"
                       size="lg"
@@ -440,7 +415,6 @@ export default function PropertyDetail() {
                       Confirm &amp; Book Now
                     </Button>
 
-                    {/* Trust Badges */}
                     <div className="flex items-center justify-center gap-4 mt-4">
                       <div className="flex items-center gap-1.5 text-[11px] text-[#081F4D]/40">
                         <ShieldCheck className="w-3.5 h-3.5" />
@@ -463,7 +437,6 @@ export default function PropertyDetail() {
         </div>
       </section>
 
-      {/* Image Gallery Lightbox */}
       {galleryOpen && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -479,14 +452,7 @@ export default function PropertyDetail() {
           </button>
 
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setGalleryIndex(
-                (prev) =>
-                  (prev - 1 + galleryImages.length) %
-                  galleryImages.length
-              );
-            }}
+            onClick={(e) => { e.stopPropagation(); handlePrevImage(); }}
             className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -511,18 +477,12 @@ export default function PropertyDetail() {
                 quality={100}
                 sizes="(max-width: 768px) 100vw, 1024px"
                 className="object-contain"
-                style={{ imageRendering: "auto" }}
               />
             </motion.div>
           </div>
 
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setGalleryIndex(
-                (prev) => (prev + 1) % galleryImages.length
-              );
-            }}
+            onClick={(e) => { e.stopPropagation(); handleNextImage(); }}
             className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
           >
             <ChevronRight className="w-6 h-6" />
@@ -544,30 +504,5 @@ export default function PropertyDetail() {
         price={property.price}
       />
     </div>
-  );
-}
-
-function CalendarDays(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-      <line x1="16" x2="16" y1="2" y2="6" />
-      <line x1="8" x2="8" y1="2" y2="6" />
-      <line x1="3" x2="21" y1="10" y2="10" />
-      <path d="M8 14h.01" />
-      <path d="M12 14h.01" />
-      <path d="M16 14h.01" />
-      <path d="M8 18h.01" />
-      <path d="M12 18h.01" />
-      <path d="M16 18h.01" />
-    </svg>
   );
 }

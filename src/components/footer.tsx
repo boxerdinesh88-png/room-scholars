@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Phone,
   Mail,
@@ -36,11 +35,7 @@ export default function Footer() {
     <footer id="contact" className="bg-[#081F4D] text-white">
       <div className="w-[85%] max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <div className="flex items-center gap-2 mb-5">
               <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
                 <span className="text-[#D4A24C] font-bold text-lg font-[family-name:var(--font-playfair)]">
@@ -73,14 +68,9 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
+          <div>
             <h3 className="text-base font-bold font-[family-name:var(--font-playfair)] mb-5">
               Quick Links
             </h3>
@@ -97,14 +87,9 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
+          <div>
             <h3 className="text-base font-bold font-[family-name:var(--font-playfair)] mb-5">
               Destinations
             </h3>
@@ -121,14 +106,9 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
+          <div>
             <h3 className="text-base font-bold font-[family-name:var(--font-playfair)] mb-5">
               Contact Us
             </h3>
@@ -160,12 +140,12 @@ export default function Footer() {
                 </span>
               </li>
             </ul>
-          </motion.div>
+          </div>
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-xs sm:text-sm">
-            &copy; {new Date().getFullYear()} Room Scholars. All rights reserved.
+            &copy; 2026 Room Scholars. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <a

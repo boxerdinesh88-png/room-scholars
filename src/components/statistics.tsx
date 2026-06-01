@@ -14,21 +14,29 @@ function Counter({ end, suffix, duration = 2000 }: CounterProps) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
+  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!isInView) return;
-    let start = 0;
-    const increment = end / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
+    const startTime = performance.now();
+
+    function update(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * end);
+
+      setCount(current);
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(update);
       }
-    }, 16);
-    return () => clearInterval(timer);
+    }
+
+    rafRef.current = requestAnimationFrame(update);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, [isInView, end, duration]);
 
   return (
@@ -91,7 +99,7 @@ export default function Statistics() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {stats.map((stat, index) => {
+          {stats.map((stat) => {
             const Icon = stat.icon;
             return (
               <motion.div
@@ -99,7 +107,7 @@ export default function Statistics() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5 }}
                 whileHover={{ y: -6 }}
                 className="group bg-white/[0.03] backdrop-blur-sm rounded-2xl p-8 text-center border border-white/[0.06] hover:border-[#D4A24C]/20 hover:bg-white/[0.06] transition-all duration-300"
               >

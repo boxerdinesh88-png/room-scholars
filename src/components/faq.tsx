@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDown, HelpCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const faqs = [
   {

@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useDeferredValue } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useMemo, useCallback, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -43,24 +42,7 @@ function parsePrice(price: string): number {
   return parseInt(price.replace(/[^0-9]/g, ""), 10);
 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.06 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
-};
-
-function PropertyCard({
+const PropertyCard = memo(function PropertyCard({
   property,
   onBookNow,
 }: {
@@ -68,13 +50,9 @@ function PropertyCard({
   onBookNow: (p: Property) => void;
 }) {
   return (
-    <motion.div
-      layout
-      whileHover={{ y: -6 }}
-      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 cursor-pointer"
-    >
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 cursor-pointer hover:-translate-y-1.5">
       <Link href={`/property/${property.slug}`} prefetch={false}>
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#E8E6E1]">
           <Image
             src={property.thumbnail}
             alt={property.name}
@@ -88,7 +66,7 @@ function PropertyCard({
               {property.tag}
             </span>
           )}
-          <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg px-2.5 py-1 shadow-sm">
+          <div className="absolute top-3 right-3 bg-white/90 rounded-lg px-2.5 py-1 shadow-sm">
             <div className="flex items-center gap-1">
               <MapPin className="w-3 h-3 text-[#D4A24C]" />
               <span className="text-[10px] font-semibold text-[#081F4D]">
@@ -163,9 +141,9 @@ function PropertyCard({
           Book Now
         </Button>
       </div>
-    </motion.div>
+    </div>
   );
-}
+});
 
 export default function PopularDestinations() {
   const [selectedCity, setSelectedCity] = useState<string>("All");
@@ -177,8 +155,6 @@ export default function PopularDestinations() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [modalProperty, setModalProperty] = useState<Property | null>(null);
-
-  const deferredSearch = useDeferredValue(searchQuery);
 
   const filteredProperties = useMemo(() => {
     let result = [...properties];
@@ -213,8 +189,8 @@ export default function PopularDestinations() {
       result = result.filter((p) => p.tag === tagFilter);
     }
 
-    if (deferredSearch.trim()) {
-      const q = deferredSearch.toLowerCase();
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(q) ||
@@ -236,7 +212,7 @@ export default function PopularDestinations() {
     }
 
     return result;
-  }, [selectedCity, bedsFilter, bathsFilter, priceFilter, tagFilter, deferredSearch, sortBy]);
+  }, [selectedCity, bedsFilter, bathsFilter, priceFilter, tagFilter, searchQuery, sortBy]);
 
   const clearFilters = useCallback(() => {
     setSelectedCity("All");
@@ -263,12 +239,7 @@ export default function PopularDestinations() {
   return (
     <section id="destinations" className="py-20 sm:py-28 bg-[#F8F7F4]">
       <div className="w-[85%] max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
+        <div className="text-center mb-12">
           <span className="text-[#D4A24C] font-semibold text-sm tracking-widest uppercase">
             Explore UK Cities
           </span>
@@ -279,14 +250,9 @@ export default function PopularDestinations() {
           <p className="text-[#081F4D]/60 mt-4 max-w-2xl mx-auto">
             Find your perfect student home across the UK&apos;s best cities.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-3 mb-10"
-        >
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
           {cities.map((city) => {
             const isActive = selectedCity === city;
             return (
@@ -300,24 +266,12 @@ export default function PopularDestinations() {
                 }`}
               >
                 {city}
-                {isActive && (
-                  <motion.span
-                    layoutId="city-active"
-                    className="absolute inset-0 rounded-full bg-[#D4A24C] -z-10"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
               </button>
             );
           })}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-3 mb-6"
-        >
+        <div className="flex items-center gap-3 mb-6">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#081F4D]/30" />
             <input
@@ -356,111 +310,105 @@ export default function PopularDestinations() {
               <span className="hidden sm:inline">Clear</span>
             </button>
           )}
-        </motion.div>
+        </div>
 
-        <AnimatePresence>
-          {showFilters && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden mb-8"
-            >
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-2">
-                      Bedrooms
-                    </label>
-                    <div className="flex gap-1.5">
-                      {bedOptions.map((opt) => (
-                        <button
-                          key={opt}
-                          onClick={() => setBedsFilter(opt)}
-                          className={`flex-1 h-9 rounded-lg text-xs font-semibold transition-all duration-200 ${
-                            bedsFilter === opt
-                              ? "bg-[#D4A24C] text-[#081F4D] shadow-sm"
-                              : "bg-[#F8F7F4] text-[#081F4D]/60 hover:bg-[#081F4D]/5"
-                          }`}
-                        >
-                          {opt}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-2">
-                      Bathrooms
-                    </label>
-                    <div className="flex gap-1.5">
-                      {bathOptions.map((opt) => (
-                        <button
-                          key={opt}
-                          onClick={() => setBathsFilter(opt)}
-                          className={`flex-1 h-9 rounded-lg text-xs font-semibold transition-all duration-200 ${
-                            bathsFilter === opt
-                              ? "bg-[#D4A24C] text-[#081F4D] shadow-sm"
-                              : "bg-[#F8F7F4] text-[#081F4D]/60 hover:bg-[#081F4D]/5"
-                          }`}
-                        >
-                          {opt}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-2">
-                      Price Range
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={priceFilter}
-                        onChange={(e) => setPriceFilter(e.target.value)}
-                        className="w-full h-9 px-3 rounded-lg bg-[#F8F7F4] text-xs font-semibold text-[#081F4D]/70 border-none focus:outline-none focus:ring-2 focus:ring-[#D4A24C]/30 appearance-none cursor-pointer"
-                        style={{
-                          backgroundImage:
-                            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23081F4D' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
-                          backgroundRepeat: "no-repeat",
-                          backgroundPosition: "right 10px center",
-                        }}
-                      >
-                        {priceOptions.map((opt) => (
-                          <option key={opt.value} value={opt.value}>
-                            {opt.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-2">
-                      Property Type
-                    </label>
-                    <div className="flex gap-1.5">
-                      {tagOptions.map((opt) => (
-                        <button
-                          key={opt}
-                          onClick={() => setTagFilter(opt)}
-                          className={`flex-1 h-9 rounded-lg text-xs font-semibold transition-all duration-200 ${
-                            tagFilter === opt
-                              ? "bg-[#D4A24C] text-[#081F4D] shadow-sm"
-                              : "bg-[#F8F7F4] text-[#081F4D]/60 hover:bg-[#081F4D]/5"
-                          }`}
-                        >
-                          {opt === "All" ? "All" : opt}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-out ${
+            showFilters ? "max-h-96 opacity-100 mb-8" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-2">
+                  Bedrooms
+                </label>
+                <div className="flex gap-1.5">
+                  {bedOptions.map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => setBedsFilter(opt)}
+                      className={`flex-1 h-9 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                        bedsFilter === opt
+                          ? "bg-[#D4A24C] text-[#081F4D] shadow-sm"
+                          : "bg-[#F8F7F4] text-[#081F4D]/60 hover:bg-[#081F4D]/5"
+                      }`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-2">
+                  Bathrooms
+                </label>
+                <div className="flex gap-1.5">
+                  {bathOptions.map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => setBathsFilter(opt)}
+                      className={`flex-1 h-9 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                        bathsFilter === opt
+                          ? "bg-[#D4A24C] text-[#081F4D] shadow-sm"
+                          : "bg-[#F8F7F4] text-[#081F4D]/60 hover:bg-[#081F4D]/5"
+                      }`}
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-2">
+                  Price Range
+                </label>
+                <div className="relative">
+                  <select
+                    value={priceFilter}
+                    onChange={(e) => setPriceFilter(e.target.value)}
+                    className="w-full h-9 px-3 rounded-lg bg-[#F8F7F4] text-xs font-semibold text-[#081F4D]/70 border-none focus:outline-none focus:ring-2 focus:ring-[#D4A24C]/30 appearance-none cursor-pointer"
+                    style={{
+                      backgroundImage:
+                        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23081F4D' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "right 10px center",
+                    }}
+                  >
+                    {priceOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-2">
+                  Property Type
+                </label>
+                <div className="flex gap-1.5">
+                  {tagOptions.map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => setTagFilter(opt)}
+                      className={`flex-1 h-9 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                        tagFilter === opt
+                          ? "bg-[#D4A24C] text-[#081F4D] shadow-sm"
+                          : "bg-[#F8F7F4] text-[#081F4D]/60 hover:bg-[#081F4D]/5"
+                      }`}
+                    >
+                      {opt === "All" ? "All" : opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -504,58 +452,41 @@ export default function PopularDestinations() {
           </div>
         </div>
 
-        <motion.div
-          key={`${selectedCity}-${bedsFilter}-${bathsFilter}-${priceFilter}-${tagFilter}-${sortBy}-${searchQuery}`}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProperties.length > 0 ? (
-              filteredProperties.map((property) => (
-                <PropertyCard
-                  key={property.slug}
-                  property={property}
-                  onBookNow={handleBookNow}
-                />
-              ))
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="col-span-full py-20 text-center"
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6">
+          {filteredProperties.length > 0 ? (
+            filteredProperties.map((property) => (
+              <PropertyCard
+                key={property.slug}
+                property={property}
+                onBookNow={handleBookNow}
+              />
+            ))
+          ) : (
+            <div className="col-span-full py-20 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#081F4D]/5 flex items-center justify-center mx-auto mb-4">
+                <Search className="w-7 h-7 text-[#081F4D]/30" />
+              </div>
+              <h3 className="text-xl font-bold font-[family-name:var(--font-playfair)] text-[#081F4D] mb-2">
+                No Properties Found
+              </h3>
+              <p className="text-[#081F4D]/60 text-sm max-w-md mx-auto mb-6">
+                Try adjusting your filters or search criteria to find available
+                properties.
+              </p>
+              <Button
+                variant="outline-dark"
+                size="sm"
+                onClick={clearFilters}
+                className="rounded-full"
               >
-                <div className="w-16 h-16 rounded-2xl bg-[#081F4D]/5 flex items-center justify-center mx-auto mb-4">
-                  <Search className="w-7 h-7 text-[#081F4D]/30" />
-                </div>
-                <h3 className="text-xl font-bold font-[family-name:var(--font-playfair)] text-[#081F4D] mb-2">
-                  No Properties Found
-                </h3>
-                <p className="text-[#081F4D]/60 text-sm max-w-md mx-auto mb-6">
-                  Try adjusting your filters or search criteria to find available
-                  properties.
-                </p>
-                <Button
-                  variant="outline-dark"
-                  size="sm"
-                  onClick={clearFilters}
-                  className="rounded-full"
-                >
-                  Clear All Filters
-                </Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+                Clear All Filters
+              </Button>
+            </div>
+          )}
+        </div>
 
         {filteredProperties.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+          <div className="text-center mt-12">
             <Link href="/destinations">
               <Button
                 variant="outline-dark"
@@ -565,7 +496,7 @@ export default function PopularDestinations() {
                 View All Properties
               </Button>
             </Link>
-          </motion.div>
+          </div>
         )}
       </div>
 

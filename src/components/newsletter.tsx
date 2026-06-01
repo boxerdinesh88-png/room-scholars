@@ -107,10 +107,10 @@ export default function Newsletter() {
                 <CheckCircle2 className="w-8 h-8 text-[#D4A24C]" />
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold font-[family-name:var(--font-playfair)] text-white mb-4">
-                You're Subscribed!
+                You&apos;re Subscribed!
               </h2>
               <p className="text-white/70 max-w-md mx-auto">
-                Thank you for subscribing. You'll receive the latest updates
+                Thank you for subscribing. You&apos;ll receive the latest updates
                 directly in your inbox.
               </p>
             </motion.div>

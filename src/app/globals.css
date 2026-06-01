@@ -34,7 +34,7 @@
   }
 }
 
-* {
+html {
   scroll-behavior: smooth;
 }
 
@@ -55,6 +55,38 @@ body {
   contain-intrinsic-size: 600px;
 }
 
+@layer base {
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Improve focus visibility for accessibility */
+  *:focus-visible {
+    outline: 2px solid #D4A24C;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove default focus for mouse users */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  .gpu {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -64,9 +96,42 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .group-hover\:scale-105 {
+    transform: none !important;
+  }
+
+  .group-hover\:scale-110 {
+    transform: none !important;
+  }
+
+  .hover\:-translate-y-0\.5 {
+    transform: none !important;
+  }
+
+  .hover\:-translate-y-1 {
+    transform: none !important;
+  }
+
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
-.gpu {
-  transform: translateZ(0);
-  will-change: transform;
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  @page {
+    margin: 2cm;
+  }
 }

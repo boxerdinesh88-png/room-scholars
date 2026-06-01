@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { useState, useCallback, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -10,24 +9,17 @@ import { properties } from "@/lib/properties";
 import EnquiryModal from "@/components/enquiry-modal";
 import type { Property } from "@/lib/properties";
 
-function PropertyCard({
+const PropertyCard = memo(function PropertyCard({
   property,
-  index,
   onBookNow,
 }: {
   property: Property;
-  index: number;
   onBookNow: (p: Property) => void;
 }) {
   return (
     <Link href={`/property/${property.slug}`}>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        whileHover={{ y: -8 }}
-        className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer"
+      <div
+        className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer hover:-translate-y-2"
       >
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image
@@ -94,10 +86,10 @@ function PropertyCard({
             Book Now
           </Button>
         </div>
-      </motion.div>
+      </div>
     </Link>
   );
-}
+});
 
 export default function FeaturedProperties() {
   const [modalProperty, setModalProperty] = useState<Property | null>(null);
@@ -106,15 +98,14 @@ export default function FeaturedProperties() {
     setModalProperty(property);
   }, []);
 
+  const handleCloseModal = useCallback(() => {
+    setModalProperty(null);
+  }, []);
+
   return (
     <section id="properties" className="py-20 sm:py-28 bg-white">
       <div className="w-[85%] max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <span className="text-[#D4A24C] font-semibold text-sm tracking-widest uppercase">
             Our Collection
           </span>
@@ -125,25 +116,19 @@ export default function FeaturedProperties() {
           <p className="text-[#081F4D]/60 mt-4 max-w-2xl mx-auto">
             Explore our handpicked selection of premium student accommodations.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {properties.map((property, index) => (
+          {properties.map((property) => (
             <PropertyCard
               key={property.slug}
               property={property}
-              index={index}
               onBookNow={handleBookNow}
             />
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
+        <div className="text-center mt-12">
           <Link href="/destinations">
             <Button
               variant="outline-dark"
@@ -153,13 +138,13 @@ export default function FeaturedProperties() {
               View All Properties
             </Button>
           </Link>
-        </motion.div>
+        </div>
       </div>
 
       {modalProperty && (
         <EnquiryModal
           isOpen={!!modalProperty}
-          onClose={() => setModalProperty(null)}
+          onClose={handleCloseModal}
           propertyName={modalProperty.name}
           propertyLocation={modalProperty.location}
           price={modalProperty.price}
