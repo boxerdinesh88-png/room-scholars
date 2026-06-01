@@ -22,6 +22,8 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  Lock,
+  CreditCard,
 } from "lucide-react";
 import { getPropertyBySlug } from "@/lib/properties";
 import EnquiryModal from "@/components/enquiry-modal";
@@ -325,77 +327,135 @@ export default function PropertyDetail() {
                 transition={{ delay: 0.2 }}
                 className="sticky top-24"
               >
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.08)] p-8">
-                  {/* Price */}
-                  <div className="flex items-baseline gap-1.5 mb-7">
-                    <span className="text-4xl font-bold text-[#081F4D]">
-                      {property.price}
-                    </span>
-                    <span className="text-[#081F4D]/60 text-sm font-medium">
-                      /{property.period.replace("per ", "")}
-                    </span>
-                  </div>
-
-                  {/* Booking Details */}
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center gap-4 p-4 rounded-xl bg-[#F8F7F4]">
-                      <div className="w-10 h-10 rounded-lg bg-[#D4A24C]/10 flex items-center justify-center shrink-0">
-                        <CalendarDays className="w-5 h-5 text-[#D4A24C]" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-[#081F4D]/50">
-                          Move-in Date
-                        </p>
-                        <p className="text-sm font-semibold text-[#081F4D]">
-                          Flexible
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 p-4 rounded-xl bg-[#F8F7F4]">
-                      <div className="w-10 h-10 rounded-lg bg-[#D4A24C]/10 flex items-center justify-center shrink-0">
-                        <ShieldCheck className="w-5 h-5 text-[#D4A24C]" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-[#081F4D]/50">Deposit</p>
-                        <p className="text-sm font-semibold text-[#081F4D]">
-                          One month rent
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 p-4 rounded-xl bg-[#F8F7F4]">
-                      <div className="w-10 h-10 rounded-lg bg-[#D4A24C]/10 flex items-center justify-center shrink-0">
-                        <HeadphonesIcon className="w-5 h-5 text-[#D4A24C]" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-[#081F4D]/50">Support</p>
-                        <p className="text-sm font-semibold text-[#081F4D]">
-                          24/7 Assistance
-                        </p>
-                      </div>
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden">
+                  {/* Card Header */}
+                  <div className="bg-[#081F4D] px-6 py-4">
+                    <div className="flex items-center gap-2">
+                      <Lock className="w-4 h-4 text-[#D4A24C]" />
+                      <span className="text-white text-sm font-semibold">Secure Checkout</span>
                     </div>
                   </div>
 
-                  {/* CTA Buttons */}
-                  <Button
-                    variant="default"
-                    size="lg"
-                    onClick={() => setModalOpen(true)}
-                    className="w-full rounded-full text-base h-14 shadow-lg shadow-[#D4A24C]/25 hover:shadow-xl hover:shadow-[#D4A24C]/30 hover:-translate-y-0.5 mb-3 transition-all duration-300"
-                  >
-                    Book This Property
-                  </Button>
-                  <Button
-                    variant="outline-dark"
-                    size="lg"
-                    onClick={() => setModalOpen(true)}
-                    className="w-full rounded-full text-base h-14"
-                  >
-                    Schedule a Viewing
-                  </Button>
+                  <div className="p-6">
+                    {/* Price */}
+                    <div className="flex items-baseline gap-1.5 mb-6">
+                      <span className="text-4xl font-bold text-[#081F4D]">
+                        {property.price}
+                      </span>
+                      <span className="text-[#081F4D]/60 text-sm font-medium">
+                        /{property.period.replace("per ", "")}
+                      </span>
+                    </div>
 
-                  <p className="text-center text-xs text-[#081F4D]/40 mt-5">
-                    No hidden fees. Cancel anytime.
-                  </p>
+                    {/* Price Breakdown */}
+                    <div className="space-y-3 mb-6 pb-6 border-b border-gray-100">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-[#081F4D]/60">Booking Amount</span>
+                        <span className="font-semibold text-[#081F4D]">{property.price}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-[#081F4D]/60">Service Fee</span>
+                        <span className="font-semibold text-[#081F4D]">Free</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-[#081F4D]/60">Security Deposit</span>
+                        <span className="font-semibold text-[#081F4D]">{property.price}</span>
+                      </div>
+                      <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                        <span className="text-sm font-bold text-[#081F4D]">Total Due Today</span>
+                        <span className="text-lg font-bold text-[#D4A24C]">{property.price}</span>
+                      </div>
+                    </div>
+
+                    {/* Booking Details */}
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center gap-3 p-3.5 rounded-xl bg-[#F8F7F4]">
+                        <div className="w-9 h-9 rounded-lg bg-[#D4A24C]/10 flex items-center justify-center shrink-0">
+                          <CalendarDays className="w-4.5 h-4.5 text-[#D4A24C]" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-xs text-[#081F4D]/50">Move-in Date</p>
+                          <select className="text-sm font-semibold text-[#081F4D] bg-transparent border-none p-0 focus:outline-none w-full appearance-none cursor-pointer">
+                            <option>Select move-in date</option>
+                            <option>ASAP</option>
+                            <option>This Month</option>
+                            <option>Next Month</option>
+                            <option>Next Semester</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 p-3.5 rounded-xl bg-[#F8F7F4]">
+                        <div className="w-9 h-9 rounded-lg bg-[#D4A24C]/10 flex items-center justify-center shrink-0">
+                          <ShieldCheck className="w-4.5 h-4.5 text-[#D4A24C]" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-[#081F4D]/50">Deposit</p>
+                          <p className="text-sm font-semibold text-[#081F4D]">One month rent</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 p-3.5 rounded-xl bg-[#F8F7F4]">
+                        <div className="w-9 h-9 rounded-lg bg-[#D4A24C]/10 flex items-center justify-center shrink-0">
+                          <HeadphonesIcon className="w-4.5 h-4.5 text-[#D4A24C]" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-[#081F4D]/50">Support</p>
+                          <p className="text-sm font-semibold text-[#081F4D]">24/7 Assistance</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Payment Methods */}
+                    <div className="mb-6">
+                      <p className="text-xs font-semibold text-[#081F4D]/50 uppercase tracking-wider mb-3">
+                        We accept
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <div className="h-8 px-3 rounded-lg bg-[#F8F7F4] border border-gray-100 flex items-center gap-1.5">
+                          <svg viewBox="0 0 24 16" className="w-8 h-5" fill="#1A1F71"><rect width="24" height="16" rx="2" fill="white"/><path d="M10.5 11.5H8.5L10 4.5H12L10.5 11.5Z" fill="#1A1F71"/><path d="M16.5 4.7C16.2 4.5 15.7 4.3 15 4.3C13.5 4.3 12.4 5.2 12.4 6.5C12.4 7.4 13.2 7.9 13.8 8.2C14.4 8.5 14.6 8.7 14.6 9C14.6 9.4 14.2 9.6 13.8 9.6C13.3 9.6 13 9.5 12.6 9.3L12.5 9.2L12.3 10.5C12.7 10.7 13.3 10.9 14 10.9C15.6 10.9 16.7 10 16.7 8.6C16.7 7.8 16.2 7.3 15.4 6.9C14.8 6.6 14.5 6.4 14.5 6.1C14.5 5.8 14.8 5.6 15.2 5.6C15.6 5.6 16 5.7 16.3 5.9L16.5 4.7Z" fill="#1A1F71"/><path d="M19 7.3C18.7 7.3 18.4 7.5 18.2 7.9L18.1 7.9L18.2 7C18.2 7 18.2 6.9 18.1 6.9H17.3L16.5 10.9H17.3L17.6 9.2C17.7 8.7 18 8.3 18.4 8.3C18.6 8.3 18.7 8.5 18.7 8.8C18.7 9 18.6 9.2 18.6 9.3L18.3 10.9H19.1L19.5 9.1C19.6 8.5 19.4 7.9 19 7.3Z" fill="#1A1F71"/><path d="M22.5 4.5L21 10.9H20.2L21.7 4.5H22.5Z" fill="#1A1F71"/><path d="M8.2 4.5L6.3 9.4L6.1 8.5C5.7 7.3 4.7 6.1 3.5 5.5L5.2 10.9H6L8.8 4.5H8.2Z" fill="#1A1F71"/><path d="M4.8 4.5H2.5L2.4 4.7C4.1 5.1 5.3 6.2 5.8 7.5L5.1 4.9C5 4.6 4.9 4.5 4.8 4.5Z" fill="#F79E1B"/></svg>
+                          <span className="text-[10px] font-bold text-[#081F4D]/40">Visa</span>
+                        </div>
+                        <div className="h-8 px-3 rounded-lg bg-[#F8F7F4] border border-gray-100 flex items-center gap-1.5">
+                          <svg viewBox="0 0 24 16" className="w-8 h-5" fill="#EB001B"><rect width="24" height="16" rx="2" fill="white"/><path d="M15.5 4.5C13.6 4.5 12 6.1 12 8C12 9.9 13.6 11.5 15.5 11.5C17.4 11.5 19 9.9 19 8C19 6.1 17.4 4.5 15.5 4.5Z" fill="#EB001B"/><path d="M8.5 4.5C6.6 4.5 5 6.1 5 8C5 9.9 6.6 11.5 8.5 11.5C10.4 11.5 12 9.9 12 8C12 6.1 10.4 4.5 8.5 4.5Z" fill="#F79E1B"/><path d="M12 5.5C13.1 6.2 13.8 7.5 13.8 8.9C13.8 10.3 13.1 11.6 12 12.3C10.9 11.6 10.2 10.3 10.2 8.9C10.2 7.5 10.9 6.2 12 5.5Z" fill="#FF5F00"/></svg>
+                          <span className="text-[10px] font-bold text-[#081F4D]/40">MC</span>
+                        </div>
+                        <div className="h-8 px-3 rounded-lg bg-[#F8F7F4] border border-gray-100 flex items-center gap-1.5">
+                          <svg viewBox="0 0 24 16" className="w-8 h-5"><rect width="24" height="16" rx="2" fill="white"/><text x="5" y="12" fontSize="8" fontWeight="bold" fill="#003087">AMEX</text></svg>
+                          <span className="text-[10px] font-bold text-[#081F4D]/40">Amex</span>
+                        </div>
+                        <div className="h-8 px-3 rounded-lg bg-[#F8F7F4] border border-gray-100 flex items-center gap-1.5">
+                          <svg viewBox="0 0 24 16" className="w-8 h-5"><rect width="24" height="16" rx="2" fill="#003087"/><text x="3" y="11" fontSize="7" fontWeight="bold" fill="white">Pay</text><text x="13" y="11" fontSize="7" fontWeight="bold" fill="#009CDE">Pal</text></svg>
+                          <span className="text-[10px] font-bold text-[#081F4D]/40">PayPal</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* CTA Button */}
+                    <Button
+                      variant="default"
+                      size="lg"
+                      onClick={() => setModalOpen(true)}
+                      className="w-full rounded-xl text-base h-14 shadow-lg shadow-[#D4A24C]/25 hover:shadow-xl hover:shadow-[#D4A24C]/30 hover:-translate-y-0.5 mb-3 transition-all duration-300 font-bold flex items-center justify-center gap-2"
+                    >
+                      <Lock className="w-4 h-4" />
+                      Confirm &amp; Book Now
+                    </Button>
+
+                    {/* Trust Badges */}
+                    <div className="flex items-center justify-center gap-4 mt-4">
+                      <div className="flex items-center gap-1.5 text-[11px] text-[#081F4D]/40">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        SSL Secure
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11px] text-[#081F4D]/40">
+                        <CreditCard className="w-3.5 h-3.5" />
+                        Safe Payment
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11px] text-[#081F4D]/40">
+                        <CheckCircle className="w-3.5 h-3.5" />
+                        No Hidden Fees
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </div>
